@@ -15,9 +15,12 @@ export class MailPage implements OnInit {
   constructor(private http: HttpClient, private popoverCtrl: PopoverController, private router: Router) { }
 
   ngOnInit() {
-    this.http.get<any[]>('https://devdactic.fra1.digitaloceanspaces.com/gmail/data.json').subscribe( res =>{
+    this.http.get<any[]>('https://devdactic.fra1.digitaloceanspaces.com/gmail/data.json').subscribe(res => {
       this.emails = res;
-      console.log(this.emails);
+      for (let e of this.emails) {
+        // Create a custom color for every email
+        e.color = this.intToRGB(this.hashCode(e.from));
+      }
     });
   }
 
